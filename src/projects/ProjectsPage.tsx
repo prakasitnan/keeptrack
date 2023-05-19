@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { MOCK_PROJECTS } from './MockProjects';
-// import { projectAPI } from './projectAPI';
-// import { Project } from './Project';
 import { loadProjects } from './state/projectActions';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -12,11 +10,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../state';
 
 function ProjectsPage() {
-  // const [projects, setProjects] = useState<Project[]>([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState<String | undefined>(undefined);
-  // const [currentPage, setCurrentPage] = useState(1);
-
   const loading = useSelector(
     (appState: AppState) => appState.projectState.loading
   );
@@ -35,51 +28,12 @@ function ProjectsPage() {
   const dispatch = useDispatch<ThunkDispatch<ProjectState, any, AnyAction>>();
 
   const handleMoreClick = () => {
-    // setCurrentPage((currentPage) => currentPage + 1);
     dispatch(loadProjects(currentPage + 1));
   };
-
-  // useEffect(() => {
-  //   async function loadProjects() {
-  //     setLoading(true);
-  //     try {
-  //       const data = await projectAPI.get(currentPage);
-  //       setError('');
-  //       if (currentPage === 1) {
-  //         setProjects(data);
-  //       } else {
-  //         setProjects((projects) => [...projects, ...data]);
-  //       }
-  //     } catch (e) {
-  //       if (e instanceof Error) {
-  //         setError(e.message);
-  //       }
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   loadProjects();
-  // }, [currentPage]);
 
   useEffect(() => {
     dispatch(loadProjects(1));
   }, [dispatch]);
-
-  // const saveProject = (project: Project) => {
-  //   projectAPI
-  //     .put(project)
-  //     .then((updatedProject) => {
-  //       let updatedProjects = projects.map((p: Project) => {
-  //         return p.id === project.id ? new Project(updatedProject) : p;
-  //       });
-  //       setProjects(updatedProjects);
-  //     })
-  //     .catch((e) => {
-  //       if (e instanceof Error) {
-  //         setError(e.message);
-  //       }
-  //     });
-  // };
 
   return (
     <>
